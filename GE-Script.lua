@@ -24,7 +24,6 @@ local Section4 = Tab2:CreateSection("Background")
 
 local Slider1 = Section1:CreateSlider("Walkspeed", 0,100,nil,true, function(Value)
 	lPlayer.Character.Humanoid.WalkSpeed = (Value)
-	--print(Value)
 end)
 Slider1:AddToolTip("Adjusts your walkspeed")
 Slider1:SetValue(16)
@@ -73,55 +72,12 @@ Button1:AddToolTip("Kills your player")
 ---------------- Name Scrambler
 
 local Button2 = Misc:CreateButton("Scramble Names", function()
-while wait(0.1) do
-local playertable = game:GetService("Players"):GetPlayers()
-for n,v in pairs(playertable) do
-local length = 20
-
-	local usenums = true
-	local usespecial = true
-
-	--[[----Settings End----]]
-
-	local letters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"}
-	local nums = {"1","2","3","4","5","6","7","8","9","0"}
-	local special = {"!","@","#","$"} -- defining all characters in different tables
-
-
-	-- applying settings --
-	if usenums then
-	    for _,v in pairs(nums) do
-	        table.insert(letters,#letters+1,v) -- we only use table letters, so we add it to that table
-	    end
-	end
-
-	if usespecial then
-	    for _,v in pairs(special) do
-	        table.insert(letters,#letters+1,v) -- do the same here but for specials
-	    end
-	end
-
-
-
-local str = "" -- string we'll loop random things into
-
-	math.randomseed(os.time()) -- fuck this stupid bullshit
-
-
-	for i=1,length do 
-	    str = str..letters[math.random(1,#letters)]
-	end
-	v.DisplayName = (str)
-	v.Name = (str)
-	end
-end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/GEv1/main/GE-NameScramble.lua"))()
 end)
 Button2:AddToolTip("Will make all player names random")
---------------
 
+---------------- Force Sit
 
-
------------
 local Toggle1 = Misc:CreateToggle("Force Sit", nil, function(State)
 	if State == true then
 		lPlayer.Character.Humanoid.Sit = true
@@ -137,8 +93,10 @@ end)
 
 local Label1 = Misc:CreateLabel("Name: "..lPlayer.Name)
 local Label2 = Misc:CreateLabel("Display Name: "..lPlayer.DisplayName)
-------------
---[[local Toggle1 = Section1:CreateToggle("Toggle 1", nil, function(State)
+
+------------ Extra UI stuff
+--[[
+local Toggle1 = Section1:CreateToggle("Toggle 1", nil, function(State)
 	print(State)
 end)
 Toggle1:AddToolTip("Toggle 1 ToolTip")
@@ -200,7 +158,9 @@ end)
 Colorpicker2:AddToolTip("Colorpicker 2 ToolTip")
 Colorpicker2:UpdateColor(Color3.fromRGB(0,0,255))
 ]]
+
 -------------
+
 local Toggle3 = Section3:CreateToggle("UI Toggle", nil, function(State)
 	Window:Toggle(State)
 end)
