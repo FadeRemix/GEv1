@@ -7,7 +7,8 @@ local Config = {
 local players = game:GetService("Players")
 local lPlayer = players.LocalPlayer
 local numbr = 0
-
+local Stats = game:GetService("Stats").PerformanceStats
+-- PlayerCount
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/UI-Librarys/main/LOADSTRINGS/BracketV3%20Loadstring"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
@@ -94,7 +95,28 @@ end)
 local Label1 = Misc:CreateLabel("Name: "..lPlayer.Name)
 local Label2 = Misc:CreateLabel("Display Name: "..lPlayer.DisplayName)
 
+------------ Rounding Function
+
+local function round(number, decimalPlaces)
+	return math.round(number * 10^decimalPlaces) * 10^-decimalPlaces
+end
+
+------------ Stat Labels
+
+local labelMEM = Pref:CreateLabel("memory")
+local labelGPU = Pref:CreateLabel("gpu")
+local labelCPU = Pref:CreateLabel("cpu")
+while wait(0.1) do
+	local MEMUsage = Stats["Memory"]:GetValue()
+		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
+	local CPUVAL = Stats["CPU"]:GetValue()
+		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
+	local GPUVAL = Stats["GPU"]:GetValue()
+		labelGPU:UpdateText("GPU: "..round(GPUVAL,3))
+end
+
 ------------ Extra UI stuff
+
 --[[
 local Toggle1 = Section1:CreateToggle("Toggle 1", nil, function(State)
 	print(State)
@@ -103,12 +125,14 @@ Toggle1:AddToolTip("Toggle 1 ToolTip")
 Toggle1:CreateKeybind("Y", function(Key)
 	print(Key)
 end)
-
+-------------
 local TextBox1 = Section1:CreateTextBox("TextBox 1", "Only numbers", true, function(Value)
 	print(Value)
 end)
 TextBox1:AddToolTip("Yes only numbers")
+
 --TextBox1:SetValue("new value here")
+
 Section1:CreateTextBox("TextBox 1\nMultiline", "numbers and letters", false, function(String)
 	print(String)
 end)
