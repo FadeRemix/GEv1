@@ -38,4 +38,3 @@ local str = "" -- string we'll loop random things into
 	v.Name = (str)
 	end
 end
-end)
