@@ -1,2 +1,2 @@
 # GEv1
-## a general cheat im making for roblox
+this is for me to practice scripting
