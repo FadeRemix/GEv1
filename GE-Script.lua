@@ -93,7 +93,9 @@ end)
 
 
 local Label1 = Misc:CreateLabel("Name: "..lPlayer.Name)
+Label1:UpdateText("Name: "..lPlayer.Name)
 local Label2 = Misc:CreateLabel("Display Name: "..lPlayer.DisplayName)
+Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
 
 ------------ Rounding Function
 
@@ -102,19 +104,17 @@ local function round(number, decimalPlaces)
 end
 
 ------------ Stat Labels
-
-local labelMEM = Pref:CreateLabel("memory")
-local labelGPU = Pref:CreateLabel("gpu")
 local labelCPU = Pref:CreateLabel("cpu")
+local labelGPU = Pref:CreateLabel("gpu")
+local labelMEM = Pref:CreateLabel("memory")
 while wait(0.1) do
-	local MEMUsage = Stats["Memory"]:GetValue()
-		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
-	local CPUVAL = Stats["CPU"]:GetValue()
-		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
 	local GPUVAL = Stats["GPU"]:GetValue()
 		labelGPU:UpdateText("GPU: "..round(GPUVAL,3))
+	local CPUVAL = Stats["CPU"]:GetValue()
+		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
+	local MEMUsage = Stats["Memory"]:GetValue()
+		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
 end
-
 ------------ Extra UI stuff
 
 --[[
