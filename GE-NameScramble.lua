@@ -23,12 +23,8 @@ if usespecial then
 	end
 end
 
-
-
 local str = ""
-		
 	math.randomseed(os.time())
-		
 for i=1,length do 
 		str = str..letters[math.random(1,#letters)]
 	end
