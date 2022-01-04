@@ -16,10 +16,16 @@ local Tab1 = Window:CreateTab("General Settings")
 local Tab2 = Window:CreateTab("UI Settings")
 
 local Section1 = Tab1:CreateSection("Player")
-local Pref = Tab1:CreateSection("Performance")
 local Misc = Tab1:CreateSection("Misc")
+local Pref = Tab1:CreateSection("Performance")
 local Section3 = Tab2:CreateSection("Menu")
 local Section4 = Tab2:CreateSection("Background")
+
+------------ Rounding Function
+
+local function round(number, decimalPlaces)
+	return math.round(number * 10^decimalPlaces) * 10^-decimalPlaces
+end
 
 ---------------- Walkspeed
 
@@ -30,7 +36,7 @@ Slider1:AddToolTip("Adjusts your walkspeed")
 Slider1:SetValue(16)
 
 local ButtonWALK = Section1:CreateButton("Reset Walk Speed", function()
-Slider1:SetValue(16)
+	Slider1:SetValue(16)
 end)
 ButtonWALK:AddToolTip("Will reset walk speed")
 
@@ -44,7 +50,7 @@ Slider2:AddToolTip("Adjusts your jump height")
 Slider2:SetValue(50)
 
 local ButtonJUMP = Section1:CreateButton("Reset Jump Height", function()
-Slider2:SetValue(50)
+	Slider2:SetValue(50)
 end)
 ButtonJUMP:AddToolTip("Will reset jump height")
 
@@ -70,9 +76,21 @@ local Button1 = Section1:CreateButton("Suicide", function()
 end)
 Button1:AddToolTip("Kills your player")
 
+---------------- Set Name 
+
+local TextBox1 = Misc:CreateTextBox("Name Changer*", "Enter New Name", false, function(Value)
+	lPlayer.Name = (Value)
+end)
+TextBox1:AddToolTip("Will Change Current Name (Will Conflict With Name Scramble)")
+
+local TextBox2 = Misc:CreateTextBox("Display Name Changer*", "Enter New Display Name", false, function(Value)
+	lPlayer.DisplayName = (Value)
+end)
+TextBox2:AddToolTip("Will Change Current Display Name (Will Conflict With Name Scramble)")
+
 ---------------- Name Scrambler
 
-local Button2 = Misc:CreateButton("Scramble Names", function()
+local Button2 = Misc:CreateButton("Name Scrambler", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/GEv1/main/GE-NameScramble.lua"))()
 end)
 Button2:AddToolTip("Will make all player names random")
@@ -90,31 +108,18 @@ Toggle1:AddToolTip("Will force your player to sit")
 Toggle1:CreateKeybind("Y", function(Key)
 	print(Key)
 end)
-
+ 
+------------ Player Name
 
 local Label1 = Misc:CreateLabel("Name: "..lPlayer.Name)
 Label1:UpdateText("Name: "..lPlayer.Name)
 local Label2 = Misc:CreateLabel("Display Name: "..lPlayer.DisplayName)
 Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
 
------------- Rounding Function
+------------ Disclaimers
 
-local function round(number, decimalPlaces)
-	return math.round(number * 10^decimalPlaces) * 10^-decimalPlaces
-end
+local Label3 = Misc:CreateLabel("* = CLIENT SIDE ONLY")
 
------------- Stat Labels
-local labelCPU = Pref:CreateLabel("cpu")
-local labelGPU = Pref:CreateLabel("gpu")
-local labelMEM = Pref:CreateLabel("memory")
-while wait(0.1) do
-	local GPUVAL = Stats["GPU"]:GetValue()
-		labelGPU:UpdateText("GPU: "..round(GPUVAL,3))
-	local CPUVAL = Stats["CPU"]:GetValue()
-		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
-	local MEMUsage = Stats["Memory"]:GetValue()
-		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
-end
 ------------ Extra UI stuff
 
 --[[
@@ -125,14 +130,11 @@ Toggle1:AddToolTip("Toggle 1 ToolTip")
 Toggle1:CreateKeybind("Y", function(Key)
 	print(Key)
 end)
--------------
 local TextBox1 = Section1:CreateTextBox("TextBox 1", "Only numbers", true, function(Value)
 	print(Value)
 end)
 TextBox1:AddToolTip("Yes only numbers")
-
 --TextBox1:SetValue("new value here")
-
 Section1:CreateTextBox("TextBox 1\nMultiline", "numbers and letters", false, function(String)
 	print(String)
 end)
@@ -182,9 +184,7 @@ end)
 Colorpicker2:AddToolTip("Colorpicker 2 ToolTip")
 Colorpicker2:UpdateColor(Color3.fromRGB(0,0,255))
 ]]
-
 -------------
-
 local Toggle3 = Section3:CreateToggle("UI Toggle", nil, function(State)
 	Window:Toggle(State)
 end)
@@ -232,3 +232,18 @@ local Slider4 = Section4:CreateSlider("Tile Scale",0,1,nil,false, function(Value
 	Window:SetTileScale(Value)
 end)
 Slider4:SetValue(0.5)
+
+------------ Stat Labels
+
+local labelCPU = Pref:CreateLabel("cpu")
+local labelGPU = Pref:CreateLabel("gpu")
+local labelMEM = Pref:CreateLabel("memory")
+
+while wait(0.1) do
+	local GPUVAL = Stats["GPU"]:GetValue()
+		labelGPU:UpdateText("GPU: "..round(GPUVAL,3))
+	local CPUVAL = Stats["CPU"]:GetValue()
+		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
+	local MEMUsage = Stats["Memory"]:GetValue()
+		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
+end
