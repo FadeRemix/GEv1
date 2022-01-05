@@ -13,13 +13,15 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeR
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
 local Tab1 = Window:CreateTab("General Settings")
-local Tab2 = Window:CreateTab("UI Settings")
+local Tab2 = Window:CreateTab("Auto Farms")
+local Tab3 = Window:CreateTab("UI Settings")
 
 local Section1 = Tab1:CreateSection("Player")
 local Misc = Tab1:CreateSection("Misc")
 local Pref = Tab1:CreateSection("Performance")
-local Section3 = Tab2:CreateSection("Menu")
-local Section4 = Tab2:CreateSection("Background")
+local frm = Tab2:CreateSection("Games")
+local Section3 = Tab3:CreateSection("Menu")
+local Section4 = Tab3:CreateSection("Background")
 
 ------------ Rounding Function
 
@@ -108,7 +110,6 @@ Toggle1:AddToolTip("Will force your player to sit")
 Toggle1:CreateKeybind("Y", function(Key)
 	print(Key)
 end)
- 
 ------------ Player Name
 
 local Label1 = Misc:CreateLabel("Name: "..lPlayer.Name)
