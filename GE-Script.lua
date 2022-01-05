@@ -80,6 +80,7 @@ local Button1 = Section1:CreateButton("Suicide", function()
 		character = lPlayer.Character
 		humanoid = character:FindFirstChild('Humanoid')
 		humanoid.Health = 0
+		print("dead")
 end)
 Button1:AddToolTip("Kills your player")
 
