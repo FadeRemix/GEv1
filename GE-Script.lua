@@ -107,7 +107,6 @@ end)
 Toggle1:AddToolTip("Will force your player to sit")
 Toggle1:CreateKeybind("Y", function(Key)
 	print(Key)
-	print("pressed")
 end)
  
 ------------ Player Name
