@@ -118,6 +118,7 @@ local Toggle1 = Misc:CreateToggle("Force Sit", nil, function(State)
 		lPlayer.Character.Humanoid.Sit = true
 			elseif State == false then
 		lPlayer.Character.Humanoid.Sit = false
+		print("unsit")
 	end
 end)
 Toggle1:AddToolTip("Will force your player to sit")
