@@ -23,6 +23,11 @@ local frm = Tab2:CreateSection("Games")
 local Section3 = Tab3:CreateSection("Menu")
 local Section4 = Tab3:CreateSection("Background")
 
+------------ Chat Spam Function
+
+local function spamz(Word)
+	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Word,"All")
+end
 ------------ Rounding Function
 
 local function round(number, decimalPlaces)
@@ -78,6 +83,14 @@ local Button1 = Section1:CreateButton("Suicide", function()
 end)
 Button1:AddToolTip("Kills your player")
 
+---------------- Message Chat
+--------PLAN TO ADD SPAMMER HERE (CANT BE BOTHERD TO MAKE RN)
+local TextToSpam = Misc:CreateTextBox("Say Something", "Enter Text", false, function(Value)
+	spamz((Value))
+end)
+TextToSpam:AddToolTip("Input text to spam")
+
+
 ---------------- Set Name 
 
 local TextBox1 = Misc:CreateTextBox("Name Changer*", "Enter New Name", false, function(Value)
@@ -120,6 +133,10 @@ Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
 ------------ Disclaimers
 
 local Label3 = Misc:CreateLabel("* = CLIENT SIDE ONLY")
+
+------------ Autofarm sections
+
+
 
 ------------ Extra UI stuff
 
