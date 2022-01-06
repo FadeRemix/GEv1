@@ -8,7 +8,7 @@ local players = game:GetService("Players")
 local lPlayer = players.LocalPlayer
 local numbr = 0
 local Stats = game:GetService("Stats").PerformanceStats
--- PlayerCount
+local playertable = game:GetService("Players"):GetPlayers()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/UI-Librarys/main/LOADSTRINGS/BracketV3%20Loadstring"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
@@ -19,7 +19,6 @@ local Tab3 = Window:CreateTab("UI Settings")
 local Section1 = Tab1:CreateSection("Player")
 local Misc = Tab1:CreateSection("Misc")
 local Pref = Tab1:CreateSection("Performance")
-local frm = Tab2:CreateSection("Games")
 local Section3 = Tab3:CreateSection("Menu")
 local Section4 = Tab3:CreateSection("Background")
 
@@ -258,6 +257,7 @@ Slider4:SetValue(0.5)
 local labelCPU = Pref:CreateLabel("cpu")
 local labelGPU = Pref:CreateLabel("gpu")
 local labelMEM = Pref:CreateLabel("memory")
+local labelPLR = Pref:CreateLabel("Players")
 
 while wait(0.1) do
 	local GPUVAL = Stats["GPU"]:GetValue()
@@ -266,4 +266,5 @@ while wait(0.1) do
 		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
 	local MEMUsage = Stats["Memory"]:GetValue()
 		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
+	labelPLR:UpdateText("Players in server: "..#playertable)
 end
