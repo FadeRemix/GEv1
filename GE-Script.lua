@@ -19,7 +19,6 @@ local Tab3 = Window:CreateTab("UI Settings")
 local Section1 = Tab1:CreateSection("Player")
 local Misc = Tab1:CreateSection("Misc")
 local Pref = Tab1:CreateSection("Performance")
-local frm = Tab2:CreateSection("Games")
 local Section3 = Tab3:CreateSection("Menu")
 local Section4 = Tab3:CreateSection("Background")
 
