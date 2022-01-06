@@ -266,5 +266,6 @@ while wait(0.1) do
 		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
 	local MEMUsage = Stats["Memory"]:GetValue()
 		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
-	labelPLR:UpdateText("Players in server: "..#playertable)
+	local playertable = game:GetService("Players"):GetPlayers()
+		labelPLR:UpdateText("Players in server: "..#playertable)
 end
