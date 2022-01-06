@@ -8,7 +8,6 @@ local players = game:GetService("Players")
 local lPlayer = players.LocalPlayer
 local numbr = 0
 local Stats = game:GetService("Stats").PerformanceStats
-local playertable = game:GetService("Players"):GetPlayers()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/UI-Librarys/main/LOADSTRINGS/BracketV3%20Loadstring"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 
