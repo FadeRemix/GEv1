@@ -4,6 +4,7 @@ local Config = {
 	Keybind = Enum.KeyCode.RightShift
 }
 
+local time = 0
 local players = game:GetService("Players")
 local lPlayer = players.LocalPlayer
 local numbr = 0
@@ -286,9 +287,12 @@ local labelCPU = Pref:CreateLabel("cpu")
 local labelGPU = Pref:CreateLabel("gpu")
 local labelMEM = Pref:CreateLabel("memory")
 local labelPLR = Pref:CreateLabel("Players")
+local labelTIME = Pref:CreateLabel("TIme")
 
 while wait(0.1) do
-	local humnoid = game:GetService("Workspace"):FindFirstChild(name).Humanoid
+	--time = time + 1
+  --labelTIME:UpdateText(string.format("Time Elapsed: ".."%02d:%02d:%02d",time/3600,(time%3600)/60,time%60))
+	local humnoid2 = game:GetService("Workspace"):FindFirstChild(name).Humanoid
 	local GPUVAL = Stats["GPU"]:GetValue()
 		labelGPU:UpdateText("GPU: "..round(GPUVAL,3))
 	local CPUVAL = Stats["CPU"]:GetValue()
@@ -297,5 +301,5 @@ while wait(0.1) do
 		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
 	local playertable = game:GetService("Players"):GetPlayers()
 		labelPLR:UpdateText("Players in server: "..#playertable)
-	healthlabel:UpdateText("Health: "..humnoid.Health)
+	healthlabel:UpdateText("Health: "..humnoid2.Health)
 end
