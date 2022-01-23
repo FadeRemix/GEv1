@@ -12,7 +12,9 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeR
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 local Char = lPlayer.Character
 local humnoid = Char.Humanoid
-local speaker = game.Players.LocalPlayer 
+local speaker = game.Players.LocalPlayer
+local name = lPlayer.Name
+local LPR = game:GetService("Workspace"):FindFirstChild(name)
 
 local Tab1 = Window:CreateTab("General Cheats")
 
@@ -90,7 +92,6 @@ local TextToSpam = Misc:CreateTextBox("Say Something", "Enter Text", false, func
 end)
 TextToSpam:AddToolTip("Input text to spam")
 
-
 ---------------- Set Name 
 
 local TextBox1 = Misc:CreateTextBox("Name Changer*", "Enter New Name", false, function(Value)
@@ -164,10 +165,6 @@ Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
 
 local healthlabel = Misc:CreateLabel("Health: "..humnoid.Health)
 
------------- Autofarm sections
-
-
-
 ------------ Extra UI stuff
 
 --[[
@@ -233,6 +230,7 @@ Colorpicker2:AddToolTip("Colorpicker 2 ToolTip")
 Colorpicker2:UpdateColor(Color3.fromRGB(0,0,255))
 ]]
 -------------
+
 local Toggle3 = Section3:CreateToggle("UI Toggle", nil, function(State)
 	Window:Toggle(State)
 end)
@@ -247,6 +245,7 @@ end)
 Colorpicker3:UpdateColor(Config.Color)
 
 -- credits to jan for patterns
+
 local Dropdown3 = Section4:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
 	if Name == "Default" then
 		Window:SetBackground("2151741365")
@@ -289,6 +288,7 @@ local labelMEM = Pref:CreateLabel("memory")
 local labelPLR = Pref:CreateLabel("Players")
 
 while wait(0.1) do
+	local humnoid = game:GetService("Workspace"):FindFirstChild(name).Humanoid
 	local GPUVAL = Stats["GPU"]:GetValue()
 		labelGPU:UpdateText("GPU: "..round(GPUVAL,3))
 	local CPUVAL = Stats["CPU"]:GetValue()
@@ -297,5 +297,5 @@ while wait(0.1) do
 		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
 	local playertable = game:GetService("Players"):GetPlayers()
 		labelPLR:UpdateText("Players in server: "..#playertable)
-		healthlabel:UpdateText("Health: "..humnoid.Health)
+	healthlabel:UpdateText("Health: "..humnoid.Health)
 end
