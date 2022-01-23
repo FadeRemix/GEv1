@@ -10,6 +10,8 @@ local numbr = 0
 local Stats = game:GetService("Stats").PerformanceStats
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/UI-Librarys/main/LOADSTRINGS/BracketV3%20Loadstring"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
+local Char = lPlayer.Character
+local humnoid = Char.Humanoid
 
 local Tab1 = Window:CreateTab("General Cheats")
 
@@ -35,7 +37,7 @@ end
 ---------------- Walkspeed
 
 local Slider1 = Section1:CreateSlider("Walkspeed", 0,100,nil,true, function(Value)
-	lPlayer.Character.Humanoid.WalkSpeed = (Value)
+	humnoid.WalkSpeed = (Value)
 end)
 Slider1:AddToolTip("Adjusts your walkspeed")
 Slider1:SetValue(16)
@@ -48,7 +50,7 @@ ButtonWALK:AddToolTip("Will reset walk speed")
 ------------------ Jump Height
 
 local Slider2 = Section1:CreateSlider("Jump Height", 0,500,nil,true, function(Value)
-	lPlayer.Character.Humanoid.JumpPower = (Value)
+	humnoid.JumpPower = (Value)
 	--print(Value)
 end)
 Slider2:AddToolTip("Adjusts your jump height")
@@ -62,7 +64,7 @@ ButtonJUMP:AddToolTip("Will reset jump height")
 ---------------- Hip Heigt
 
 local Slider3 = Section1:CreateSlider("Hip Height", 0,100,nil,true, function(Value)
-	lPlayer.Character.Humanoid.HipHeight = (Value)
+	humnoid.HipHeight = (Value)
 end)
 Slider3:AddToolTip("Adjusts your hip height")
 Slider3:SetValue(2)
@@ -75,9 +77,7 @@ ButtonHIP:AddToolTip("Will reset hip height")
 ---------------- Suicide
 
 local Button1 = Section1:CreateButton("Suicide", function()
-		character = lPlayer.Character
-		humanoid = character:FindFirstChild('Humanoid')
-		humanoid.Health = 0
+		humnoid.Health = 0
 		print("dead")
 end)
 Button1:AddToolTip("Kills your player")
@@ -109,6 +109,35 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/GEv1/main/G
 end)
 Button2:AddToolTip("Will make all player names random")
 
+---------------- No clip
+
+local NoclipToggle = Misc:CreateToggle("No-clip", nil, function(State)
+	local Noclipping = nil
+if State == true then
+		Clip = false
+	wait(0.1)
+	local function NoclipLoop()
+		if Clip == false and speaker.Character ~= nil then
+			for _, child in pairs(speaker.Character:GetDescendants()) do
+				if child:IsA("BasePart") and child.CanCollide == true and child.Name ~= floatName then
+					child.CanCollide = false
+				end
+			end
+		end
+	end
+	Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
+	elseif State == false then
+			if Noclipping then
+		Noclipping:Disconnect()
+	end
+	Clip = true
+end
+end)
+NoclipToggle:AddToolTip("Allows you to walk in any room")
+NoclipToggle:CreateKeybind("E", function(Key)
+	print(Key)
+end)
+
 ---------------- Force Sit
 
 local Toggle1 = Misc:CreateToggle("Force Sit", nil, function(State)
@@ -130,9 +159,9 @@ Label1:UpdateText("Name: "..lPlayer.Name)
 local Label2 = Misc:CreateLabel("Display Name: "..lPlayer.DisplayName)
 Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
 
------------- Disclaimers
+------------ Health
 
-local Label3 = Misc:CreateLabel("* = CLIENT SIDE ONLY")
+local healthlabel = Misc:CreateLabel("Health: "..humnoid.Health)
 
 ------------ Autofarm sections
 
@@ -267,4 +296,5 @@ while wait(0.1) do
 		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
 	local playertable = game:GetService("Players"):GetPlayers()
 		labelPLR:UpdateText("Players in server: "..#playertable)
+		healthlabel:UpdateText("Health: "..humnoid.Health)
 end
