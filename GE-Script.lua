@@ -12,6 +12,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeR
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 local Char = lPlayer.Character
 local humnoid = Char.Humanoid
+local speaker = game.Players.LocalPlayer 
 
 local Tab1 = Window:CreateTab("General Cheats")
 
