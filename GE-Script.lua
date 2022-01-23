@@ -282,16 +282,17 @@ end)
 Slider4:SetValue(0.5)
 
 ------------ Stat Labels
-
+local i = 0
 local labelCPU = Pref:CreateLabel("cpu")
 local labelGPU = Pref:CreateLabel("gpu")
 local labelMEM = Pref:CreateLabel("memory")
 local labelPLR = Pref:CreateLabel("Players")
-local labelTIME = Pref:CreateLabel("TIme")
+local labelTIME = Pref:CreateLabel("Time Elapsed: 00:00:00")
+
+
 
 while wait(0.1) do
-	--time = time + 1
-  --labelTIME:UpdateText(string.format("Time Elapsed: ".."%02d:%02d:%02d",time/3600,(time%3600)/60,time%60))
+	i = i + 1
 	local humnoid2 = game:GetService("Workspace"):FindFirstChild(name).Humanoid
 	local GPUVAL = Stats["GPU"]:GetValue()
 		labelGPU:UpdateText("GPU: "..round(GPUVAL,3))
@@ -302,4 +303,10 @@ while wait(0.1) do
 	local playertable = game:GetService("Players"):GetPlayers()
 		labelPLR:UpdateText("Players in server: "..#playertable)
 	healthlabel:UpdateText("Health: "..humnoid2.Health)
+	if i == 10 then
+		time = time + 1
+  	labelTIME:UpdateText(string.format("Time Elapsed: ".."%02d:%02d:%02d",time/3600,(time%3600)/60,time%60))
+  	i = 0
+  end
 end
+
