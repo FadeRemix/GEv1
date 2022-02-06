@@ -1,5 +1,5 @@
 local Config = {
-    WindowName = "Destruction Simulator TEST2",
+    WindowName = "Destruction Simulator",
 	Color = Color3.fromRGB(255,128,64),
 	Keybind = Enum.KeyCode.RightBracket
 }
@@ -18,7 +18,6 @@ local function owo(model)
 	        end
 	end
 end
-
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/UI-Librarys/main/LOADSTRINGS/BracketV3%20Loadstring"))()
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
@@ -70,21 +69,16 @@ local Tab2 = Window:CreateTab("UI Settings")
 
 local Section1 = Tab1:CreateSection("Exploits")
 local Section2 = Tab1:CreateSection("Other")
--- local Section5 = Tab1:CreateSection("Auto Farm")
 local Section3 = Tab2:CreateSection("Menu")
 local Section4 = Tab2:CreateSection("Background")
 -------------
 
+local shouldfire = false
+
 -------------
 local TogAUTOSELL = Section1:CreateToggle("Auto Sell", nil, function(State)
-	if State == true then
-		while wait(0.1) do
-		game:GetService("ReplicatedStorage").Remotes.sellBricks:FireServer()
-	end
-	elseif State == false then
-		print("toggle off")
-    	end
-    end)
+	shouldfire = State
+end)
     TogAUTOSELL:AddToolTip("Will automatically sell all")
     -------------
 
@@ -150,6 +144,7 @@ Toggle1:AddToolTip("Toggle 1 ToolTip")
 Toggle1:CreateKeybind("Y", function(Key)
 	print(Key)
 end)
+
 local TextBox1 = Section1:CreateTextBox("TextBox 1", "Only numbers", true, function(Value)
 	print(Value)
 end)
@@ -170,11 +165,13 @@ local Dropdown1 = Section1:CreateDropdown("Dropdown 1", {"Option 1","Option 2","
 end)
 Dropdown1:AddToolTip("Dropdown 1 ToolTip")
 Dropdown1:SetOption("Option 1")
+
 local Colorpicker1 = Section1:CreateColorpicker("Colorpicker 1", function(Color)
 	print(Color)
 end)
 Colorpicker1:AddToolTip("Colorpicker 1 ToolTip")
 Colorpicker1:UpdateColor(Color3.fromRGB(255,0,0))
+
 Section2:CreateLabel("Label 2\nMultiline")
 -------------
 local Button2 = Section2:CreateButton("Button 2\nMultiline", function()
@@ -207,6 +204,7 @@ local Colorpicker2 = Section2:CreateColorpicker("Colorpicker 2\nMultiline", func
 end)
 Colorpicker2:AddToolTip("Colorpicker 2 ToolTip")
 Colorpicker2:UpdateColor(Color3.fromRGB(0,0,255))
+
 local Label1 = Section1:CreateLabel("Label 1")
 Label1:UpdateText("lol")
 ]]
@@ -222,6 +220,8 @@ local Colorpicker3 = Section3:CreateColorpicker("UI Color", function(Color)
 	Window:ChangeColor(Color)
 end)
 Colorpicker3:UpdateColor(Config.Color)
+
+local LabelCreator = Section3:CreateLabel("Created by: Fade#8495")
 
 -- credits to jan for patterns
 local Dropdown3 = Section4:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
@@ -257,3 +257,12 @@ local Slider4 = Section4:CreateSlider("Tile Scale",0,1,nil,false, function(Value
 	Window:SetTileScale(Value)
 end)
 Slider4:SetValue(0.5)
+
+
+while wait(0.01) do
+	if shouldfire then
+		game:GetService("ReplicatedStorage").Remotes.sellBricks:FireServer()
+		print("go")
+	end 
+	print("damn..")
+end
