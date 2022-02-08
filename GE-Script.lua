@@ -17,7 +17,7 @@ local humnoid = Char.Humanoid
 local speaker = game.Players.LocalPlayer
 local name = lPlayer.Name
 local LPR = game:GetService("Workspace"):FindFirstChild(name)
---local gPlayers = players:GetPlayers()
+gPlayers = players:GetPlayers()
 
 local Tab1 = Window:CreateTab("General")
 --local Tab2 = Window:CreateTab("Players")
@@ -176,12 +176,15 @@ Toggle1:AddToolTip("Will force your player to sit")
 Toggle1:CreateKeybind("Y", function(Key)
 	print(Key)
 end)
+
+------------ Players
+
+local plrslabel = selff:CreateLabel("hi :)")
+
 ------------ Player Name
 
-local Label1 = selff:CreateLabel("Name: "..lPlayer.Name)
-Label1:UpdateText("Name: "..lPlayer.Name)
 local Label2 = selff:CreateLabel("Display Name: "..lPlayer.DisplayName)
-Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
+local Label1 = selff:CreateLabel("Name: "..lPlayer.Name)
 
 ------------ Health 
 
@@ -190,6 +193,7 @@ local healthlabel = selff:CreateLabel("Health: "..humnoid.Health)
 ------------ Team Name
 
 local teamlabel = selff:CreateLabel("hi :)")
+
 
 ------------ Player Select
 --[[
@@ -343,6 +347,10 @@ if not lPlayer.Team then
 else
 	teamlabel:UpdateText("Team: "..lPlayer.Team.Name)
 end
+Label1:UpdateText("Name: "..lPlayer.Name)
+Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
+local numOFplrs = #gPlayers
+	plrslabel:UpdateText("Players in Game: "..numOFplrs)
 	if i == 10 then
 		time = time + 1
   	labelTIME:UpdateText(string.format("Time Elapsed: ".."%02d:%02d:%02d",time/3600,(time%3600)/60,time%60))
