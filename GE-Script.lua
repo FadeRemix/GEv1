@@ -4,6 +4,7 @@ local Config = {
 	Keybind = Enum.KeyCode.RightShift
 }
 
+
 local time = 0
 local players = game:GetService("Players")
 local lPlayer = players.LocalPlayer
@@ -16,27 +17,46 @@ local humnoid = Char.Humanoid
 local speaker = game.Players.LocalPlayer
 local name = lPlayer.Name
 local LPR = game:GetService("Workspace"):FindFirstChild(name)
+--local gPlayers = players:GetPlayers()
 
-local Tab1 = Window:CreateTab("General Cheats")
-
+local Tab1 = Window:CreateTab("General")
+--local Tab2 = Window:CreateTab("Players")
 local Tab3 = Window:CreateTab("UI Settings")
 
 local Section1 = Tab1:CreateSection("Player")
 local Misc = Tab1:CreateSection("Misc")
 local Pref = Tab1:CreateSection("Performance")
+local selff = Tab1:CreateSection("Info")
+--local Sele = Tab2:CreateSection("Select A Player")
+--local plrsetting = Tab2:CreateSection("About The Player")
 local Section3 = Tab3:CreateSection("Menu")
 local Section4 = Tab3:CreateSection("Background")
 
------------- Chat Spam Function
 
+------------ Get Players Func
+--[[
+local function GrabPlayers()
+
+local var2 = {}
+
+for i,v in pairs(gPlayers) do
+   table.insert(var2,v.Name)
+	end
+return var2
+end
+]]
+------------ Chat Spam Function
+--[[
 local function spamz(Word)
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Word,"All")
 end
+]]
 ------------ Rounding Function
 
 local function round(number, decimalPlaces)
 	return math.round(number * 10^decimalPlaces) * 10^-decimalPlaces
 end
+ 
 
 ---------------- Walkspeed
 
@@ -88,11 +108,12 @@ Button1:AddToolTip("Kills your player")
 
 ---------------- Message Chat
 --------PLAN TO ADD SPAMMER HERE (CANT BE BOTHERD TO MAKE RN)
+--[[
 local TextToSpam = Misc:CreateTextBox("Say Something", "Enter Text", false, function(Value)
 	spamz((Value))
 end)
 TextToSpam:AddToolTip("Input text to spam")
-
+]]
 ---------------- Set Name 
 
 local TextBox1 = Misc:CreateTextBox("Name Changer*", "Enter New Name", false, function(Value)
@@ -100,8 +121,8 @@ local TextBox1 = Misc:CreateTextBox("Name Changer*", "Enter New Name", false, fu
 end)
 TextBox1:AddToolTip("Will Change Current Name (Will Conflict With Name Scramble)")
 
-local TextBox2 = Misc:CreateTextBox("Display Name Changer*", "Enter New Display Name", false, function(Value)
-	lPlayer.DisplayName = (Value)
+local TextBox2 = Misc:CreateTextBox("Display Name Changer*", "Enter New Display Name", false, function(POGCHAMP)
+	lPlayer.DisplayName = (POGCHAMP)
 end)
 TextBox2:AddToolTip("Will Change Current Display Name (Will Conflict With Name Scramble)")
 
@@ -110,7 +131,7 @@ TextBox2:AddToolTip("Will Change Current Display Name (Will Conflict With Name S
 local Button2 = Misc:CreateButton("Name Scrambler", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/FadeRemix/GEv1/main/GE-NameScramble.lua"))()
 end)
-Button2:AddToolTip("Will make all player names random")
+Button2:AddToolTip("Will make all player names random (Can't Undo)")
 
 ---------------- No clip
 
@@ -147,7 +168,7 @@ local Toggle1 = Misc:CreateToggle("Force Sit", nil, function(State)
 	if State == true then
 		lPlayer.Character.Humanoid.Sit = true
 			elseif State == false then
-		lPlayer.Character.Humanoid.Sit = false
+			lPlayer.Character.Humanoid.Sit = false
 		print("unsit")
 	end
 end)
@@ -157,15 +178,28 @@ Toggle1:CreateKeybind("Y", function(Key)
 end)
 ------------ Player Name
 
-local Label1 = Misc:CreateLabel("Name: "..lPlayer.Name)
+local Label1 = selff:CreateLabel("Name: "..lPlayer.Name)
 Label1:UpdateText("Name: "..lPlayer.Name)
-local Label2 = Misc:CreateLabel("Display Name: "..lPlayer.DisplayName)
+local Label2 = selff:CreateLabel("Display Name: "..lPlayer.DisplayName)
 Label2:UpdateText("Display Name: "..lPlayer.DisplayName)
 
------------- Health
+------------ Health 
 
-local healthlabel = Misc:CreateLabel("Health: "..humnoid.Health)
+local healthlabel = selff:CreateLabel("Health: "..humnoid.Health)
 
+------------ Team Name
+
+local teamlabel = selff:CreateLabel("hi :)")
+
+------------ Player Select
+--[[
+local PlrNameLBL = plrsetting:CreateLabel("pog")
+local PlrSelectDROP = Sele:CreateDropdown("Players", GrabPlayers(), function(String)
+
+	PlrNameLBL:UpdateText("Name: "..String)
+end)
+PlrSelectDROP:AddToolTip("Players")
+]]
 ------------ Extra UI stuff
 
 --[[
@@ -283,11 +317,12 @@ Slider4:SetValue(0.5)
 
 ------------ Stat Labels
 local i = 0
-local labelCPU = Pref:CreateLabel("cpu")
-local labelGPU = Pref:CreateLabel("gpu")
-local labelMEM = Pref:CreateLabel("memory")
-local labelPLR = Pref:CreateLabel("Players")
+local labelCPU = Pref:CreateLabel("hi :)")
+local labelGPU = Pref:CreateLabel("hi :)")
+local labelMEM = Pref:CreateLabel("hi :)")
+--local labelPLR = Pref:CreateLabel("Players")
 local labelTIME = Pref:CreateLabel("Time Elapsed: 00:00:00")
+
 
 
 
@@ -300,9 +335,14 @@ while wait(0.1) do
 		labelCPU:UpdateText("CPU: "..round(CPUVAL,3))
 	local MEMUsage = Stats["Memory"]:GetValue()
 		labelMEM:UpdateText("Memory: "..round(MEMUsage,3))
-	local playertable = game:GetService("Players"):GetPlayers()
-		labelPLR:UpdateText("Players in server: "..#playertable)
+	--local playertable = game:GetService("Players"):GetPlayers()
+		--labelPLR:UpdateText("Players in server: "..#playertable)
 	healthlabel:UpdateText("Health: "..humnoid2.Health)
+if not lPlayer.Team then
+	teamlabel:UpdateText("Team: None")
+else
+	teamlabel:UpdateText("Team: "..lPlayer.Team.Name)
+end
 	if i == 10 then
 		time = time + 1
   	labelTIME:UpdateText(string.format("Time Elapsed: ".."%02d:%02d:%02d",time/3600,(time%3600)/60,time%60))
