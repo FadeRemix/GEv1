@@ -33,7 +33,7 @@ local Section3 = Tab3:CreateSection("Menu")
 local Section4 = Tab3:CreateSection("Background")
 
 
------------- Get Players Func
+-------------- Get Players Func
 --[[
 local function GrabPlayers()
 
